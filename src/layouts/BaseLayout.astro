@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { fade } from 'astro:transitions';
 const {pageTitle} = Astro.props 
 ---
 <html lang="en">
@@ -15,8 +16,10 @@ const {pageTitle} = Astro.props
   </head>
   <body>
     <Header />
-    <h1>{pageTitle}</h1>
-    <slot/>
+    <div transition:animate={fade({duration: '0.6s'})}>
+      <h1>{pageTitle}</h1>
+      <slot/>
+    </div>
     <Footer />
     <script>
       import "../scripts/menu.js";
