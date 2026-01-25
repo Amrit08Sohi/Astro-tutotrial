@@ -1,3 +1,11 @@
+---
+import { fade, slide } from "astro:transitions"
+import Footer from "../components/Footer.astro"
+import Header from "../components/Header.astro"
+import Navigation from "../components/Navigation.astro"
+import "../styles/global.css"
+---
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -5,16 +13,17 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>Blogs</title>
   </head>
   <body>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/blog">Blog</a>
-    <h1>My Astro Learning Blog</h1>
+    <Header />
+    <div transition:animate={slide({duration: '0.6s'})}>
+      <h1>My Astro Learning Blog</h1>
     <p>This is where I will post about my journey learning Astro.</p>
     <ul>
       <li><a href="/posts/post-1/">Post 1</a></li>
     </ul>
+    </div>
+    <Footer />
   </body>
 </html>
