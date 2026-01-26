@@ -3,6 +3,7 @@ import "../styles/global.css"
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro"
 import Header from "../components/Header.astro";
+import { fade } from "astro:transitions";
 const pageTitle = "About me";
 
 const identity = {
@@ -45,7 +46,7 @@ const textcase = "lowercase"
   </head>
   <body>
     <Header />
-    
+    <div transition:animate={fade({duration: '0.6s'})}>
     <h1>{pageTitle}</h1>
     <h2>My new Astro site!</h2>
 
@@ -91,6 +92,7 @@ const textcase = "lowercase"
         <p>My goal is not 3 days.</p>
       )
     }
+    </div>
     <Footer />
   </body>
 </html>
