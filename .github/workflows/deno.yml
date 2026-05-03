@@ -55,7 +55,7 @@ jobs:
           echo "Event: ${{ github.event_name }}"
           echo "Runner OS: ${{runner.os}}"
           echo "Runner info : ${{runner.environment}}"
-          echo "Author name: ${{secrets.AUTHOR_NAME}}"
+          echo "Author name: ${{vars.AUTHOR_NAME}}"
 
       # - name: Run tests
       #   run: deno test -A
