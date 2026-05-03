@@ -72,11 +72,11 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: echo "Deploying to ${{inputs.environment}}"
 
-      # - name: Set env var for later steps
-      #   run: echo "DYNAMIC_VAR=computed-at-runtime" >> $GITHUB_ENV
+      - name: Set env var for later steps
+        run: echo "DYNAMIC_VAR=computed-at-runtime" >> $GITHUB_ENV
 
-      # - name: Use the dynamic env var
-      #   run: echo "GOT: ${{DYNAMIC_VAR}}"
+      - name: Use the dynamic env var
+        run: echo "Hello $GITHUB_ENV"
       
       # - name: Run tests
       #   run: deno test -A
