@@ -46,5 +46,16 @@ jobs:
         run: |
           echo "Environment: ${{github.event.inputs.environment}}"
 
+      - name: Print some context values
+        run: |
+          echo "Repo: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Event: ${{ github.event_name }}"
+          echo "Runner OS: ${{runner.os}}"
+          echo "Runner info : ${{runner.environment}}"
+          echo "Author name: ${{secrets.AUTHOR_NAME}}"
+
       # - name: Run tests
       #   run: deno test -A
