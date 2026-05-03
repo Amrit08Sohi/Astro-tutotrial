@@ -9,8 +9,8 @@
 name: Deno
 
 on:
- # push: 
- #   branches: [main, master]
+ push: 
+   branches: [main, master]
  workflow_dispatch:
     inputs:
       environment:
@@ -73,9 +73,10 @@ jobs:
         run: echo "Deploying to ${{inputs.environment}}"
 
       - name: Set env var for later steps
-        run: echo "DYNAMIC_VAR=computed-at-runtime" ?? $GITHUB_ENV
+        run: echo "DYNAMIC_VAR=computed-at-runtime" >> $GITHUB_ENV
 
       - name: Use the dynamic env var
-        run: echo "Got: $DYNAMIC_VAR"
+        run: echo "GOT: ${{DYNAMIC_VAR}}"
+      
       # - name: Run tests
       #   run: deno test -A
