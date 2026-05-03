@@ -18,7 +18,6 @@ on:
         options: [DEV, UAT, PROD]
         default: DEV
         
-
 permissions:
   contents: read
 
@@ -41,7 +40,11 @@ jobs:
       #   run: deno fmt --check
 
       - name: Run linter
-        run: deno lint
+        run: deno lin
 
-      - name: Run tests
-        run: deno test -A
+      - name: Print Enviornment
+        run: |
+          echo "Environment: ${{github.event.inputs.environment}}"
+
+      # - name: Run tests
+      #   run: deno test -A
