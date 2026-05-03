@@ -57,6 +57,7 @@ jobs:
           echo "Runner OS: ${{runner.os}}"
           echo "Runner info : ${{runner.environment}}"
           echo "Author name: ${{vars.AUTHOR_NAME}}"
+          echo "SECRET: ${{secrets.MY_SECRET}}"
 
       # - name: Run tests
       #   run: deno test -A
