@@ -30,6 +30,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     environment: DEV
+    outputs:
+      job_output: ${{ steps.set-output.outputs.my_value }}
 
     steps:
       - name: Setup repo
@@ -64,19 +66,35 @@ jobs:
           echo "Author name: ${{vars.AUTHOR_NAME}}"
           echo "SECRET: ${{secrets.MY_SECRET}}"
 
-      - name: Conditional Step - only for main
-        if: github.ref_name == 'main'
+      - name: Conditional Step - only for master
+        if: github.ref_name == 'master'
         run: echo "This only runs on main branch"
 
       - name: Conditional Step - only on manual trigger
         if: github.event_name == 'workflow_dispatch'
         run: echo "Deploying to ${{inputs.environment}}"
 
-      - name: Set env var for later steps
-        run: echo "DYNAMIC_VAR=computed-at-runtime" >> $GITHUB_ENV
+      # - name: Set env var for later steps
+      #   run: echo "DYNAMIC_VAR=computed-at-runtime" >> $GITHUB_ENV
 
-      - name: Use the dynamic env var
-        run: echo "Hello $GITHUB_ENV"
-      
+      # - name: Use the dynamic env var
+      #   run: echo "Hello $GITHUB_ENV"
+
+      - name: Set an output
+        id: set-output
+        run: echo "my_value=step-output-works" >> $GITHUB_OUTPUT
+
+      - name: Read own output
+        run: echo "${{ steps.set-output.outputs.my_value }}"
+
+      - name: Write job summary
+        run: |
+          echo "## Context lab results" >> $GITHUB_STEP_SUMMARY
+          echo "| Key | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | ----- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch | ${{ github.ref_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Actor | ${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
+          
       # - name: Run tests
       #   run: deno test -A
