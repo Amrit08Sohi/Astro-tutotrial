@@ -40,7 +40,7 @@ jobs:
       #   run: deno fmt --check
 
       - name: Run linter
-        run: deno lin
+        run: deno lint
 
       - name: Print Enviornment
         run: |
