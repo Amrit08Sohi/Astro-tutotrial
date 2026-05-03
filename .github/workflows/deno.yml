@@ -9,7 +9,9 @@
 name: Deno
 
 on:
-  workflow_dispatch:
+ push: 
+   branches: [main]
+ workflow_dispatch:
     inputs:
       environment:
         description: 'Target Environment'
@@ -17,6 +19,9 @@ on:
         required: true
         options: [DEV, UAT, PROD]
         default: DEV
+
+env:
+  WORKFLOW_VAR: hello-from-workflow
         
 permissions:
   contents: read
@@ -59,5 +64,18 @@ jobs:
           echo "Author name: ${{vars.AUTHOR_NAME}}"
           echo "SECRET: ${{secrets.MY_SECRET}}"
 
+      - name: Conditional Step - only for main
+        if: github.ref_name == 'main'
+        run: echo "This only runs on main branch"
+
+      - name: Conditional Step - only on manual trigger
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "Deploying to ${{inputs.environment}}"
+
+      - name: Set env var for later steps
+        run: echo "DYNAMIC_VAR=computed-at-runtime" ?? $GITHUB_ENV
+
+      - name: Use the dynamic env var
+        run: echo "Got: $DYNAMIC_VAR"
       # - name: Run tests
       #   run: deno test -A
