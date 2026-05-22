@@ -1,0 +1,32 @@
+name: Matrix Strategy
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch: 
+    inputs:
+      environment:
+        description: Select target Environment
+        type: choice
+        required: true
+        options:
+          - DEV
+          - UAT
+          - PROD
+        default: DEV
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [18,20,22]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{matrix.node}}
+      - run: node --version && npm test
+      
+        
+    
+  
